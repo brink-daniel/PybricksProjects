@@ -13,7 +13,7 @@ motorSteering = Motor(Port.D)
 # State:
 speed = 0
 steeringTarget = 0
-SPEED_ACCELERATE = 5
+SPEED_ACCELERATE = 3
 SPEED_DECELERATE = 2
 SPEED_STEERING = 400
 MAX_STEERING = -1
@@ -55,7 +55,10 @@ while True:
         steeringTarget = MAX_STEERING
     elif Button.RIGHT_MINUS in buttons:
         steeringTarget = -MAX_STEERING
-    else:
+    elif Button.RIGHT in buttons:
+        resetSteering()
+        steeringTarget = 0
+    else:        
         steeringTarget = 0
     steeringDiff = steeringTarget-motorSteering.angle()
     motorSteering.dc(min(100, max(-100, STEERING_BOOST*steeringDiff)))
